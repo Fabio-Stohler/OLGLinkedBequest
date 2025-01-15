@@ -108,7 +108,7 @@ def solve(par):  # Solves the model
         0, cT_vec
     )  # With zero cash-on-hand, you get zero consumption
 
-    print("Start of solving the model")
+    print("\nStart of solving the model")
     print("0.0%")
     # B) All the other deterministic periods
     for t in range(T - 2, T - ch, -1):
