@@ -17,3 +17,5 @@ figtabs/gini.tex
 figtabs/ConsumptionPath.png
 figtabs/CashOnHandPath.png
 figtabs/baseline.tex
+scripts/__pycache__/model.cpython-312.pyc
+scripts/__pycache__/tools.cpython-312.pyc
