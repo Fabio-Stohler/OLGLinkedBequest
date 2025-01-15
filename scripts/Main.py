@@ -32,7 +32,7 @@ import tools as tools
 np.set_printoptions(suppress=True)
 
 # define your directory for figures and tex-files for tables
-save_to = 'C:/Users/tima.eco/CBS - Copenhagen Business School/Frederik Bjørn Christensen - TermPaper/Github/figtabs/'
+save_to = "C:/Users/Stohler/Documents/GitHub/OLGLinkedBequest/figtabs/"
 
 ########################################
 # Part 2: Define parameters
