@@ -95,9 +95,6 @@ par["P_markov"] = np.array(
 
 ###
 # c) adjustable computational parameters
-par['gridsize_m'] = 100 # Cash-on-hand gridsize in the stochastic part of the model
-par['gridsize_deterministic_m'] = 100 # Cash-on-hand gridsize in the deterministic part of the model
-par['gridsize_z'] = 20 # Gridsize of labour productivity process
 par["M_max"] = (
     par["H"][-1]
     * par["w"]
@@ -105,6 +102,11 @@ par["M_max"] = (
     * np.mean(par["l"][0 : par["r"]])
     * stats.lognorm.ppf(0.99, par["σ_z"])
 )  # Endogenous max of cash-on-hand grid
+par["gridsize_m"] = 40  # Cash-on-hand gridsize in the stochastic part of the model
+par["gridsize_deterministic_m"] = (
+    40  # Cash-on-hand gridsize in the deterministic part of the model
+)
+par["gridsize_z"] = 5  # Gridsize of labour productivity process
 par["𝒢_m_det"] = tools.nonlinspace(
     10e-6, par["M_max"], par["gridsize_deterministic_m"] - 1, 1
 )  # Grid of cash-on-hand in the final period
