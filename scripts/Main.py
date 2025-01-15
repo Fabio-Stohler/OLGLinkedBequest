@@ -119,7 +119,9 @@ par["𝒢_z"] = tools.nonlinspace(
 
 ########################################
 # Part 3: Solve full model
+start = time.time()
 Cstar_det, 𝒢_M_det, H_Cstar, H_𝒢_MEn = model.solve(par)
+print("Time to solve model: " + str(time.time() - start) + " seconds")
 
 
 ########################################
@@ -129,9 +131,11 @@ N = 100000  # number of simulated agents
 b_iter = 10  # iterations over simulated generations in order for the wealth distribution to converge
 # simulate
 
+start_sim = time.time()
 simY, simZ, simM, simC, simA, simMean, simStd, hi_children, DOA = model.sim(
     𝒢_M_det, Cstar_det, H_𝒢_MEn, H_Cstar, par, N, b_iter
 )
+print("Time to simulate model: " + str(time.time() - start_sim) + " seconds")
 
 
 ########################################
