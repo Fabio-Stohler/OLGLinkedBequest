@@ -114,20 +114,34 @@ def solve(par):  # Solves the model
     for t in range(T - 2, T - ch, -1):
         ################################################################################################################
         # 2 ) Loop over child savings (EGM)
-        for ia, a in enumerate(𝒢_a_det):
-            m_plus = R * a  # cash-on-hand tomorrow
-            C_plus = tools.interp_linear_1d_scalar(
-                𝒢_M_det[t + 1, :], Cstar_det[t + 1, :], m_plus
-            )  # consumption tomorrow
-            Cstar_det[t, ia + 1] = o * (
-                R * β * ψ[t + 1] * (C_plus / o) ** (-ρ)
-                + (1 - ψ[t + 1]) * κ * ((a + a̲) / o) ** (-γ)
-            ) ** (
-                -1 / ρ
-            )  # opt. consumption today / Euler
-            𝒢_M_det[t, ia + 1] = (
-                a + Cstar_det[t, ia + 1]
-            )  # endogenous cash-on-hand grid of the deterministic periods < T
+        # for ia, a in enumerate(𝒢_a_det):
+        # m_plus = R * a  # cash-on-hand tomorrow
+        # C_plus = tools.interp_linear_1d_scalar(
+        # 𝒢_M_det[t + 1, :], Cstar_det[t + 1, :], m_plus
+        # )  # consumption tomorrow
+        # Cstar_det[t, ia + 1] = o * (
+        # R * β * ψ[t + 1] * (C_plus / o) ** (-ρ)
+        # + (1 - ψ[t + 1]) * κ * ((a + a̲) / o) ** (-γ)
+        # ) ** (
+        # -1 / ρ
+        # )  # opt. consumption today / Euler
+        # 𝒢_M_det[t, ia + 1] = (
+        # a + Cstar_det[t, ia + 1]
+        # )  # endogenous cash-on-hand grid of the deterministic periods < T
+
+        # Extracting and vectorizing computation
+        m_plus = R * 𝒢_a_det  # Vector of cash-on-hand values for tomorrow
+
+        # Vectorized consumption interpolation
+        C_plus = tools.interp_linear_1d(𝒢_M_det[t + 1, :], Cstar_det[t + 1, :], m_plus)
+
+        # Vectorized computation for Cstar_det and 𝒢_M_det
+        Cstar_det[t, 1:] = o * (
+            R * β * ψ[t + 1] * (C_plus / o) ** (-ρ)
+            + (1 - ψ[t + 1]) * κ * ((𝒢_a_det + a̲) / o) ** (-γ)
+        ) ** (-1 / ρ)
+
+        𝒢_M_det[t, 1:] = 𝒢_a_det + Cstar_det[t, 1:]
 
     ###################################
     # Part 2: Stochastic, non-deterministic problem
