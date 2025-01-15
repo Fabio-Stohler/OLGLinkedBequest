@@ -662,11 +662,11 @@ def plots(par, simC, simM, simA, simMean, simStd, hi_children, save_to):
     plt.close()
 
     # Wealth distribution at retirement
-    plt.tick_params(axis="x", labelleft=False)
     fig, ax1 = plt.subplots(1, 1, sharex=True)
     ax1.hist(simM[r, :], bins=100, range=(0, M_max))
     ax1.set_xlabel("Wealth at retirement")
     ax1.set_ylabel("Frequency")
+    plt.tick_params(axis="x", labelleft=False)
     plt.savefig(save_to + "WealthDist.png", dpi=300)
     plt.show()
     plt.close()
